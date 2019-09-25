@@ -1,0 +1,20 @@
+config:
+  target: 'http://ec2-3-120-16-83.eu-central-1.compute.amazonaws.com'
+  phases:
+    - duration: 5
+      arrivalRate: 12
+  defaults:
+  payload:
+    path: "users.csv"
+    fields:
+      - "user"
+  variables:
+    key: "xmt6hciqqJQUqO0fWB8x7oGDdDxHhNk0"
+scenarios:
+  - name "API Call: Get Heart Rate Logs for User"
+    flow:
+    - log: "api call for user {{user}} with key {{key}}"
+    - get:
+        url: "/api/users/{{user}}/heart_rate_logs/purpose/{{key}}"
+    - get:
+        url: "/api/users/{{user}}/steps/purpose/{{key}}"
